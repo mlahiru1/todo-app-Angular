@@ -1,0 +1,32 @@
+<div class="todo-container">
+  <h2>📝 My To-Do List</h2>
+
+  <div class="input-group">
+    <input [(ngModel)]="task" placeholder="Add a new task..." />
+    <button (click)="addTask()">➕</button>
+  </div>
+
+  <div class="filters">
+    <button (click)="setFilter('all')" [class.active]="filter === 'all'">All</button>
+    <button (click)="setFilter('active')" [class.active]="filter === 'active'">Active</button>
+    <button (click)="setFilter('completed')" [class.active]="filter === 'completed'">Completed</button>
+  </div>
+
+  <ul>
+    <li *ngFor="let t of filteredTasks; let i = index">
+      <input type="checkbox" [(ngModel)]="t.completed" (change)="toggleComplete(t)" />
+
+      <span *ngIf="!t.editing" [class.done]="t.completed" (dblclick)="editTask(t)">
+        {{ t.name }}
+      </span>
+      <input *ngIf="t.editing" [(ngModel)]="t.name" (blur)="saveEditedTask(t)" (keyup.enter)="saveEditedTask(t)" />
+
+      <button class="delete" (click)="deleteTask(i)">🗑️</button>
+    </li>
+  </ul>
+
+  <div class="footer">
+    <p>{{ filteredTasks.length }} tasks shown</p>
+    <button (click)="clearAll()">Clear All</button>
+  </div>
+</div>
