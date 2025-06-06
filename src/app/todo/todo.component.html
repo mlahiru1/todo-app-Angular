@@ -14,7 +14,8 @@
 
   <ul>
     <li *ngFor="let t of filteredTasks; let i = index">
-      <input type="checkbox" [(ngModel)]="t.completed" (change)="toggleComplete(t)" />
+      <input type="checkbox" [(ngModel)]="t.completed" (ngModelChange)="saveTasks()" />
+
 
       <span *ngIf="!t.editing" [class.done]="t.completed" (dblclick)="editTask(t)">
         {{ t.name }}
